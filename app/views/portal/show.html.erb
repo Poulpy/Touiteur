@@ -1,0 +1,41 @@
+<h3>Users list</h3>
+
+<%# Fom to follow users %>
+
+<%= form_tag '/follow', method: 'post' do %>
+
+  <select name='user_id'>
+    <% current_user.unfollowed.each do |user| %>
+      <option value="<%= user.id %>"><%= user.name %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Follow" />
+<% end %>
+
+
+<hr />
+
+
+<H4>followers</H4>
+<% current_user.followers.each do |user| %>
+  <%= user.name %>
+<% end %>
+
+
+<hr />
+
+
+<H4>followeds</H4>
+
+<%# Form to unfollow the followed %>
+<%= form_tag '/unfollow', method: 'post' do %>
+
+  <select name='user_id'>
+    <% current_user.followeds.each do |user| %>
+      <option value="<%= user.id %>"><%= user.name %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Unfollow" />  
+<% end %>

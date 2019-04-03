@@ -1,0 +1,33 @@
+<h3>Page des tweets</h3>
+
+
+
+<!-- debug -->
+<table>
+
+  <% current_user.followeds.ids.each do |f| %>
+    <% Tweet.where(user_id: f).each do |t| %>
+      <tr>
+        <td>
+          <%= t.content %>
+        </td>
+        <td>
+          <%= User.find(f).name %>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+
+</table>
+
+<!-- debug -->
+
+
+
+
+<%# Add a tweet %>
+<%= form_tag "/user_page", method: :post do %>
+  <input type="text" name="tweet[content]" />
+  <input type="submit" value="Tweet !" />
+
+<% end %>
