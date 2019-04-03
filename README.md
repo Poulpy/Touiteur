@@ -1,24 +1,22 @@
-# README
+# Touiteur
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Install
 
-Things you may want to cover:
+* With HTTPS
+`git clone https://github.com/Poulpy/Touiteur.git`
 
-* Ruby version
+* With SSH
+`git clone git@github.com:Poulpy/Touiteur.git`
 
-* System dependencies
+You can also download the .zip from the github repository.
 
-* Configuration
+* Start server
+`rails server`
 
-* Database creation
+Enter the following URL in your web browser
+`localhost:3000/`
 
-* Database initialization
+## Configuration
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Ruby  : 2.3.3
+Rails : 5.2.3
