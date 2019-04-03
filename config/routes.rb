@@ -9,6 +9,8 @@ Rails.application.routes.draw do
     post 'follow' => 'portal#follow'
     post 'unfollow' => 'portal#unfollow'
     get 'portal'  => 'portal#index'
+    get '' => 'portal#index'
+    get 'index' => 'portal#index'
     get 'portal_show'  => 'portal#show'
     resources :tweets
     resources :users

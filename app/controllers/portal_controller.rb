@@ -1,5 +1,5 @@
 class PortalController < ApplicationController
-  before_action :is_allowed, only: [:tweets_page]
+  before_action :is_allowed, only: [:tweets_page, :follow, :unfollow, :show, :create]
   include ApplicationHelper
 
   def index
