@@ -1,4 +1,5 @@
 class TweetsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
 
   # GET /tweets
@@ -13,6 +14,12 @@ class TweetsController < ApplicationController
     @tweet = Tweet.find(params[:id])
   end
 
+
+  def tweets_page
+    @tweets = Tweet.where(user_id: [current_user.followeds.ids])
+  end
+
+
   # GET /tweets/new
   def new
     @tweet = Tweet.new
@@ -25,17 +32,14 @@ class TweetsController < ApplicationController
   # POST /tweets
   # POST /tweets.json
   def create
-    @tweet = Tweet.new(tweet_params)
-
-    respond_to do |format|
-      if @tweet.save
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
-        format.json { render :show, status: :created, location: @tweet }
-      else
-        format.html { render :new }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
+    @content = params[:tweet][:content]
+    @user_id = current_user.id
+    if Tweet.create content:@content, user_id: @user_id
+      flash[:message] = 'Vous avez envoyé un Tweet'
+    else
+      flash[:message] = 'ça match pas'
     end
+    redirect_to tweets_page_path
   end
 
   # PATCH/PUT /tweets/1

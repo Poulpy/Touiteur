@@ -6,7 +6,7 @@
 
   <select name='user_id'>
     <% current_user.unfollowed.each do |user| %>
-      <option value="<%= user.id %>"><%= user.name %></option>
+      <option value="<%= user.id %>"><%= user.email %></option>
     <% end %>
   </select>
 
@@ -19,7 +19,7 @@
 
 <H4>followers</H4>
 <% current_user.followers.each do |user| %>
-  <%= user.name %>
+  <%= user.email %>
 <% end %>
 
 
@@ -33,7 +33,7 @@
 
   <select name='user_id'>
     <% current_user.followeds.each do |user| %>
-      <option value="<%= user.id %>"><%= user.name %></option>
+      <option value="<%= user.id %>"><%= user.email %></option>
     <% end %>
   </select>
 

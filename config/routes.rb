@@ -1,17 +1,16 @@
 Rails.application.routes.draw do
+  devise_for :users
+    root to: "users#index"#user page
+
     resources :subscriptions
-    get 'login' => 'portal#login'
-    post 'login' => 'portal#check'
-    get 'user_page' => 'portal#tweets_page'
-    get 'user_page/:id' => 'portal#tweets_page'
-    post 'user_page' => 'portal#create'
-    get 'logout' => 'portal#logout'
-    post 'follow' => 'portal#follow'
-    post 'unfollow' => 'portal#unfollow'
-    get 'portal'  => 'portal#index'
-    get '' => 'portal#index'
-    get 'index' => 'portal#index'
-    get 'portal_show'  => 'portal#show'
+
+    get 'tweets_page' => 'tweets#tweets_page'# page of all tweets
+    post 'tweets_page' => 'tweets#create'# creation of a tweet
+
+    post 'follow' => 'subscriptions#follow'# follow a user
+    post 'unfollow' => 'subscriptions#unfollow'# unfollow a user
+    get 'portal_show'  => 'subscriptions#show'
+
     resources :tweets
     resources :users
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html

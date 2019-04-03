@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :set_subscription, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!
 
   # GET /subscriptions
   # GET /subscriptions.json
@@ -10,6 +10,7 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions/1
   # GET /subscriptions/1.json
   def show
+    @users = User.all
   end
 
   # GET /subscriptions/new
@@ -51,6 +52,30 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+
+  def follow
+    @user = current_user
+    Subscription.create follower_id: @user.id, followed_id: params[:user_id]
+    redirect_to tweets_page_path
+  end
+
+  def unfollow
+    @user = current_user
+    # BEWARE
+    # .find.destroy
+    # .where.destroy_all
+    Subscription.where(follower_id: @user.id, followed_id: params[:user_id]).destroy_all
+    redirect_to tweets_page_path
+  end
+
+
+
+
+
+
+
+
+
   # DELETE /subscriptions/1
   # DELETE /subscriptions/1.json
   def destroy
@@ -63,9 +88,7 @@ class SubscriptionsController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_subscription
-      @subscription = Subscription.find(params[:id])
-    end
+
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subscription_params

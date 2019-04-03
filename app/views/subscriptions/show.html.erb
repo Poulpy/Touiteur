@@ -1,14 +1,41 @@
-<p id="notice"><%= notice %></p>
+<h3>Users list</h3>
 
-<p>
-  <strong>Follower:</strong>
-  <%= @subscription.follower %>
-</p>
+<%# Fom to follow users %>
 
-<p>
-  <strong>Followed:</strong>
-  <%= @subscription.followed %>
-</p>
+<%= form_tag follow_path, method: 'post' do %>
 
-<%= link_to 'Edit', edit_subscription_path(@subscription) %> |
-<%= link_to 'Back', subscriptions_path %>
+  <select name='user_id'>
+    <% current_user.unfollowed.each do |user| %>
+      <option value="<%= user.id %>"><%= user.email %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Follow" />
+<% end %>
+
+
+<hr />
+
+
+<H4>followers</H4>
+<% current_user.followers.each do |user| %>
+  <%= user.email %>
+<% end %>
+
+
+<hr />
+
+
+<H4>followeds</H4>
+
+<%# Form to unfollow the followed %>
+<%= form_tag unfollow_path, method: 'post' do %>
+
+  <select name='user_id'>
+    <% current_user.followeds.each do |user| %>
+      <option value="<%= user.id %>"><%= user.email %></option>
+    <% end %>
+  </select>
+
+  <input type="submit" value="Unfollow" />  
+<% end %>

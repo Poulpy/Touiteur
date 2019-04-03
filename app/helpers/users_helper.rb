@@ -1,10 +1,13 @@
 module UsersHelper
-  def login_logout
-    if session[:connected]
-      output = "<a class='nav-link' href='/logout'>Logout</a>".html_safe
+
+  # prints html link to login page if user is not connected
+  # or link to logout is user is connected
+  def login_logout    
+    if user_signed_in?
+      link_to("Logout", destroy_user_session_path, method: :delete, class: "nav-link").html_safe
     else
-      output = "<a class='nav-link' href='/login'>Login</a>".html_safe
+      link_to("Login", new_user_session_path, class: "nav-link").html_safe
     end
-    output
   end
+
 end
