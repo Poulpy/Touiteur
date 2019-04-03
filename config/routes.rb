@@ -8,7 +8,8 @@ Rails.application.routes.draw do
     get 'logout' => 'portal#logout'
     post 'follow' => 'portal#follow'
     post 'unfollow' => 'portal#unfollow'
-    resources :portal
+    get 'portal'  => 'portal#index'
+    get 'portal_show'  => 'portal#show'
     resources :tweets
     resources :users
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
