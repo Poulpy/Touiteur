@@ -1,11 +1,45 @@
 <% tweets.each do |t| %>
   <div class="media text-muted pt-3">
-    <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32"><title>Placeholder</title><rect width="100%" height="100%" fill="#007bff"/><text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text></svg>
+    <svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: 32x32">
+      <title>Placeholder</title>
+      <rect width="100%" height="100%" fill="#007bff"/>
+        <text x="50%" y="50%" fill="#007bff" dy=".3em">32x32</text>
+    </svg>
     <p class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
       <strong class="d-block text-gray-dark"><%= t.user.email %></strong>
       <%= t.content %>
     </p>
+
+    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#modal-<%= t.id %>">
+      Reply
+    </button>
+
+    <div class="modal fade" id="modal-<%= t.id %>" tabindex="-1" role="dialog" aria-labelledby="modal-<%= t.id %>" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-<%= t.id %>">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <%= form_tag tweets_path, class: "form-signin", method: :post, remote: true, class: "reply-form" do %>
+              <input type="text" name="tweet[content]" />
+              <input type="hidden" name="tweet[tweet_id]" value="<%= t.id %>" />
+              <input type="hidden" name="tweet[user_id]" value="<%= current_user.id %>" />
+              <button class="btn btn-sm btn-primary" type="submit">Reply</button>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+  <% t.tweets.each do |r| %>
+      <p class="ml-5">
+      <%= r.user.email %>
+      <%= r.content %></p>
+    <% end %>
 <% end %>
 <br>
 <%= paginate @tweets, theme: 'twitter-bootstrap-4' %>

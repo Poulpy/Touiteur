@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-  resources :replies
   devise_for :users
-
+  resources :users, only: [:show]
   root to: "tweets#index"
 
+  resources :replies, only: [:index]
   resources :subscriptions, only: [:index, :create, :destroy]
-  resources :tweets, only: [:index, :create]
+  resources :tweets, only: [:index, :create] do
+    post :reply
+  end
 
   namespace :admin do
     root to: "users#index"

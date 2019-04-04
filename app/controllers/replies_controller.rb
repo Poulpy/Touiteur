@@ -1,10 +1,12 @@
 class RepliesController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_reply, only: [:show, :edit, :update, :destroy]
 
   # GET /replies
   # GET /replies.json
   def index
-    @replies = Reply.all
+    #@replies = Reply.all
+    @replies = Tweet.where(child_id: [current_user.replies.ids])
   end
 
   # GET /replies/1
@@ -64,7 +66,7 @@ class RepliesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_reply
-      @reply = Reply.find(params[:id])
+      #@reply = Reply.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

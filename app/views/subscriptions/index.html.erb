@@ -17,14 +17,6 @@
 <hr />
 
 
-<H4>followers</H4>
-<% current_user.followers.each do |user| %>
-  <%= user.email %>
-<% end %>
-
-
-<hr />
-
 
 <H4>followeds</H4>
 
@@ -53,6 +45,14 @@
   <% end %>
 </ul>
 
+
+<H4>followers</H4>
+<% current_user.followers.each do |user| %>
+  <%= user.email %>
+<% end %>
+
+
+<hr />
 
 
 

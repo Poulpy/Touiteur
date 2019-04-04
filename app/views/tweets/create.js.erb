@@ -1,1 +1,6 @@
 $('#tweets').html('<%= j render :partial => "tweets/tweets", locals: { tweets: @tweets } %>');
+
+$('.reply-form').submit(function(event) {
+  $('.modal').modal('hide');
+});
+

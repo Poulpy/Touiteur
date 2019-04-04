@@ -27,10 +27,25 @@ class TweetsController < ApplicationController
 
   # POST /tweets
   # POST /tweets.json
+  # def create
+  #   @content = params[:tweet][:content]
+  #   @user_id = current_user.id
+  #   Tweet.create content:@content, user_id: @user_id
+  # end
   def create
-    @content = params[:tweet][:content]
-    @user_id = current_user.id
-    Tweet.create content:@content, user_id: @user_id
+    @tweet = Tweet.new(tweet_params)
+
+    respond_to do |format|
+      if @tweet.save
+        format.html { redirect_to tweets_path, notice: 'Tweet was successfully created.' }
+        format.json { render :show, status: :created, location: @tweet }
+        format.js
+      else
+        format.html { render :new }
+        format.json { render json: @tweet.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
   end
 
   # PATCH/PUT /tweets/1
@@ -38,7 +53,7 @@ class TweetsController < ApplicationController
   def update
     respond_to do |format|
       if @tweet.update(tweet_params)
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully updated.' }
+        format.html { redirect_to tweets_path, notice: 'Tweet was successfully updated.' }
         format.json { render :show, status: :ok, location: @tweet }
       else
         format.html { render :edit }
@@ -57,6 +72,12 @@ class TweetsController < ApplicationController
     end
   end
 
+
+  def reply
+    
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
@@ -64,11 +85,13 @@ class TweetsController < ApplicationController
     end
 
     def set_tweets
-      @tweets = Tweet.where(user_id: [current_user.followeds.ids]).order("created_at DESC").page(params[:page]).per(5)
+      @tweets = Tweet.where(user_id: [current_user.followeds.ids])
+      @tweets = @tweets.where(tweet_id: nil)
+      @tweets = @tweets.order("created_at DESC").page(params[:page]).per(5)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
-      params.require(:tweet).permit(:content, :user_id)
+      params.require(:tweet).permit(:content, :user_id, :tweet_id)
     end
 end
