@@ -1,2 +1,18 @@
 <%# _followeds.html.erb %>
 
+
+
+
+<hr />
+
+<ul>
+  <% subscriptions.each do |s| %>
+    <li>
+      <%= s.follower.email %> -> <%= s.followed.email %>
+      <div class="pull-right">
+        <%= link_to "Unfollow", s, method: :delete, class: "btn btn-sm btn-danger" %>
+      </div>
+    </li>
+    <br />
+  <% end %>
+</ul>
