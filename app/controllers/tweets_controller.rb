@@ -5,18 +5,13 @@ class TweetsController < ApplicationController
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.all
+    @tweets = Tweet.where(user_id: [current_user.followeds.ids]).order("created_at DESC")
   end
 
   # GET /tweets/1
   # GET /tweets/1.json
   def show
     @tweet = Tweet.find(params[:id])
-  end
-
-
-  def tweets_page
-    @tweets = Tweet.where(user_id: [current_user.followeds.ids]).order("created_at DESC")
   end
 
 
@@ -34,13 +29,8 @@ class TweetsController < ApplicationController
   def create
     @content = params[:tweet][:content]
     @user_id = current_user.id
-    if Tweet.create content:@content, user_id: @user_id
-      flash[:message] = 'Vous avez envoyé un Tweet'
-    else
-      flash[:message] = 'ça match pas'
-    end
+    Tweet.create content:@content, user_id: @user_id
     @tweets = Tweet.where(user_id: [current_user.followeds.ids]).order("created_at DESC")
-    render 'create'
   end
 
   # PATCH/PUT /tweets/1
