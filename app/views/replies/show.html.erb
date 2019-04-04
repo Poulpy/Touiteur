@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Parent:</strong>
+  <%= @reply.parent_id %>
+</p>
+
+<p>
+  <strong>Child:</strong>
+  <%= @reply.child_id %>
+</p>
+
+<%= link_to 'Edit', edit_reply_path(@reply) %> |
+<%= link_to 'Back', replies_path %>
