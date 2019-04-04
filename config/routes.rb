@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
     root to: "users#index"#user page
-    resources :users, only: [:index]
+    resources :users, only: [:index, :destroy, :admin]
+    get 'admin' => 'users#admin'
+    
 
     resources :subscriptions, only: [:follow, :unfollow, :show]
     post 'follow' => 'subscriptions#follow'# follow a user
