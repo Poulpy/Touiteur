@@ -16,7 +16,7 @@ class TweetsController < ApplicationController
 
 
   def tweets_page
-    @tweets = Tweet.where(user_id: [current_user.followeds.ids])
+    @tweets = Tweet.where(user_id: [current_user.followeds.ids]).order("created_at DESC")
   end
 
 
@@ -39,7 +39,8 @@ class TweetsController < ApplicationController
     else
       flash[:message] = 'ça match pas'
     end
-    redirect_to tweets_page_path
+    @tweets = Tweet.where(user_id: [current_user.followeds.ids]).order("created_at DESC")
+    render 'create'
   end
 
   # PATCH/PUT /tweets/1

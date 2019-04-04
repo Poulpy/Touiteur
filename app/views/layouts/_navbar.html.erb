@@ -18,6 +18,12 @@
       </ul>
       
       <ul class="navbar-nav navbar-nav-right">
+        <% if user_signed_in? and current_user.has_role?(:admin) %>
+          <li class="nav-item">
+            <%= link_to "Admin", admin_path, class: "nav-link" %>
+          </li>
+        <% end %>
+
         <%= login_logout %>
       </ul>
     </div>
