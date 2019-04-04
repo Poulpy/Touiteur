@@ -1,11 +1,12 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+  before_action :set_tweets, only: [:index, :create]
 
   # GET /tweets
   # GET /tweets.json
   def index
-    @tweets = Tweet.where(user_id: [current_user.followeds.ids]).order("created_at DESC")
+    
   end
 
   # GET /tweets/1
@@ -30,7 +31,6 @@ class TweetsController < ApplicationController
     @content = params[:tweet][:content]
     @user_id = current_user.id
     Tweet.create content:@content, user_id: @user_id
-    @tweets = Tweet.where(user_id: [current_user.followeds.ids]).order("created_at DESC")
   end
 
   # PATCH/PUT /tweets/1
@@ -61,6 +61,10 @@ class TweetsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_tweet
       @tweet = Tweet.find(params[:id])
+    end
+
+    def set_tweets
+      @tweets = Tweet.where(user_id: [current_user.followeds.ids]).order("created_at DESC").page(params[:page]).per(5)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

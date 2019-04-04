@@ -1,4 +1,4 @@
-class UsersController < ApplicationController
+class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    @users = User.all
   end
 
   # GET /users/1
@@ -55,9 +56,7 @@ class UsersController < ApplicationController
 
 
 
-  def admin
-    @users = User.all
-  end
+
 
   # DELETE /users/1
   # DELETE /users/1.json

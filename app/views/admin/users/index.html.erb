@@ -1,0 +1,6 @@
+<%= form_tag 'users/destroy', method: :delete do %>
+
+  <%= select_tag 'user[id]', options_from_collection_for_select(@users.collect, "id", "email") %>
+
+  <button class="btn btn-sm btn-primary" type="submit">Delete</button>
+<% end %>
