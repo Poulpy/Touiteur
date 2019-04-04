@@ -2,7 +2,7 @@
 
 <%# Fom to follow users %>
 
-<%= form_tag follow_path, method: 'post' do %>
+<%= form_tag subscriptions_path, method: 'post' do %>
 
   <select name='user_id'>
     <% current_user.unfollowed.each do |user| %>
@@ -29,7 +29,7 @@
 <H4>followeds</H4>
 
 <%# Form to unfollow the followed %>
-<%= form_tag unfollow_path, method: 'post' do %>
+<%= form_tag subscriptions_path, method: 'post' do %>
 
   <select name='user_id'>
     <% current_user.followeds.each do |user| %>

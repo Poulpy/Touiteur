@@ -62,7 +62,8 @@ class UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    puts params[:user][:id]
+    #puts params[:user][:id]
+    #User.find(params[:user][:id]).delete
     User.find(params[:user][:id]).delete
     redirect_to admin_path
   end

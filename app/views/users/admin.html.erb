@@ -2,16 +2,8 @@
 
 
 <%= form_tag 'users/destroy', method: :delete do %>
-  <%#= select ('user', 'user_id', @users { |u| [u.email, u.id] }, {include_blank: true}) %>
 
-  <%#= select @users, 'delete', @users.collect { |u| [u.email, u.id] }, { include_blank: true }%>
+  <%= select_tag 'user[id]', options_from_collection_for_select(@users.collect, "id", "email") %>
 
-  <%#= select_tag 'id', options_from_collection_for_select(@users.collect, "id", "email") %>
-
-  <select name="[user]id">
-    <% @users.each do |u| %>
-    <option value="<%= u.id %>"><%= u.email %></option>
-    <% end %>
-  </select>
   <button class="btn btn-sm btn-primary" type="submit">Delete</button>
 <% end %>

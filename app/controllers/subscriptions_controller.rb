@@ -5,6 +5,7 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions.json
   def index
     @subscriptions = Subscription.all
+    @users = User.all
   end
 
   # GET /subscriptions/1
@@ -25,17 +26,9 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions
   # POST /subscriptions.json
   def create
-    @subscription = Subscription.new(subscription_params)
-
-    respond_to do |format|
-      if @subscription.save
-        format.html { redirect_to @subscription, notice: 'Subscription was successfully created.' }
-        format.json { render :show, status: :created, location: @subscription }
-      else
-        format.html { render :new }
-        format.json { render json: @subscription.errors, status: :unprocessable_entity }
-      end
-    end
+    @user = current_user
+    Subscription.create follower_id: @user.id, followed_id: params[:user_id]
+    redirect_to subscriptions_path
   end
 
   # PATCH/PUT /subscriptions/1
@@ -53,37 +46,18 @@ class SubscriptionsController < ApplicationController
   end
 
 
-  def follow
-    @user = current_user
-    Subscription.create follower_id: @user.id, followed_id: params[:user_id]
-    redirect_to tweets_page_path
-  end
-
-  def unfollow
+  # DELETE /subscriptions/1
+  # DELETE /subscriptions/1.json
+  def destroy
     @user = current_user
     # BEWARE
     # .find.destroy
     # .where.destroy_all
-    Subscription.where(follower_id: @user.id, followed_id: params[:user_id]).destroy_all
-    redirect_to tweets_page_path
-  end
-
-
-
-
-
-
-
-
-
-  # DELETE /subscriptions/1
-  # DELETE /subscriptions/1.json
-  def destroy
+    #Subscription.where(follower_id: current_user.id, followed_id: params[:user][:id]).destroy_all
+    @subscription = Subscription.find(params[:id])
     @subscription.destroy
-    respond_to do |format|
-      format.html { redirect_to subscriptions_url, notice: 'Subscription was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+
+    redirect_to subscriptions_path
   end
 
   private
