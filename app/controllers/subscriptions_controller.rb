@@ -27,9 +27,6 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions.json
   def create
     @subscriptions = Subscription.all
-    # @user = current_user
-    # Subscription.create follower_id: @user.id, followed_id: params[:user][:id]
-    # redirect_to subscriptions_path
     @sub = Subscription.new(subscription_params)
 
     respond_to do |format|
@@ -66,7 +63,6 @@ class SubscriptionsController < ApplicationController
     # BEWARE
     # .find.destroy
     # .where.destroy_all
-    #Subscription.where(follower_id: current_user.id, followed_id: params[:user][:id]).destroy_all
     @subscription = Subscription.find(params[:id])
     @subscription.destroy
 
