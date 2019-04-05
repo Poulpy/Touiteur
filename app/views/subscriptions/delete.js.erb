@@ -1,0 +1,3 @@
+<%# Called when following/unfollowing a user : create and destroy %>
+
+$('#subs').html('<%= j render partial: "followeds", locals: { subscriptions: @subscriptions, unfollowed: current_user.unfollowed } %>');

@@ -26,6 +26,7 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions
   # POST /subscriptions.json
   def create
+    @subscriptions = Subscription.all
     # @user = current_user
     # Subscription.create follower_id: @user.id, followed_id: params[:user][:id]
     # redirect_to subscriptions_path
@@ -62,7 +63,6 @@ class SubscriptionsController < ApplicationController
   # DELETE /subscriptions/1
   # DELETE /subscriptions/1.json
   def destroy
-    @user = current_user
     # BEWARE
     # .find.destroy
     # .where.destroy_all
@@ -70,7 +70,10 @@ class SubscriptionsController < ApplicationController
     @subscription = Subscription.find(params[:id])
     @subscription.destroy
 
-    redirect_to subscriptions_path
+    respond_to do |format|
+      format.html { redirect_to subscriptions_url, notice: 'Sub was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private

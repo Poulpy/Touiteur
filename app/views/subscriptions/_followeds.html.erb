@@ -2,22 +2,22 @@
 
 <h6>Users you aren't following</h6>
 
-<%= form_for Subscription.new, method: :post do |f| %>
-  <%= f.select :followed_id, options_for_select(unfollowed.collect { |u| [u.email, u.id] }) %>
-  <%= f.text_field :follower_id, value: current_user.id, type: :hidden %>
-  <%= button_tag "Follow", type: 'submit', class: "btn btn-sm btn-primary" %>
+<%= form_for Subscription.new, method: :post, remote: true, class: "form-inline" do |f| %>
+  <%= f.select :followed_id, options_for_select(unfollowed.collect { |u| [u.email, u.id] }), {}, class: "form-control col-3 d-inline" %>
+  <%= f.hidden_field :follower_id, value: current_user.id %>
+  <%= button_tag "Follow", type: 'submit', class: "btn btn-sm btn-primary my-1 d-inline" %>
 <% end %>
 
 <hr />
 
 <h6>Users you are following</h6>
 
-<ul>
-  <% subscription.each do |s| %>
-    <li>
-      <%= s.follower.email %> -> <%= s.followed.email %>
+<ul class="list-group col-4">
+  <% subscriptions.each do |s| %>
+    <li class="list-group-item">
+      <%= s.followed.email %>
       <div class="pull-right">
-        <%= link_to "Unfollow", s, method: :delete, class: "btn btn-sm btn-danger" %>
+        <%= link_to "Unfollow", s, method: :delete, class: "btn btn-sm btn-outline-danger" %>
       </div>
     </li>
     <br />
