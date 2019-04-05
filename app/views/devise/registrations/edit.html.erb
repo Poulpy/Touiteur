@@ -34,23 +34,17 @@
   <br>
 
   <div>
-    <%= f.label :image %><br />
-    <%= f.file_field(:image) %>
+    <%= f.label :avatar %><br />
+    <%= f.file_field(:avatar) %>
 
     <hr>
-    <% if resource.image.attached? %>
-      <%= image_tag url_for(resource.image), size: "64x64" %>
+    <% if resource.avatar.attached? %>
+      <%= image_tag url_for(resource.avatar), size: "64x64" %>
     <% end %>
 
   </div>
 
   <br><br>
-
-
-  <div class="field">
-    
-    <input type="image" id="user_image" name="user[image]" />
-  </div>
 
 
 

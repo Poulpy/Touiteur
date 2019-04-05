@@ -6,10 +6,6 @@ class TweetsController < ApplicationController
   # GET /tweets
   # GET /tweets.json
   def index
-    # current_user.image.attach(
-    # io: File.open('/Users/paul/Desktop/gitimage.jpg'),
-    # filename: 'gitimage.jpg'
-    # )
   end
 
   # GET /tweets/1

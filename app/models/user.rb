@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :followeds_subscriptions, foreign_key: "follower_id", class_name: "Subscription"
   has_many :followeds, through: :followeds_subscriptions
 
-  has_one_attached :image
+  has_one_attached :avatar
 
 
   # add a default role to a user just created
