@@ -32,7 +32,7 @@ class SubscriptionsController < ApplicationController
     respond_to do |format|
       if @sub.save
         # Tell the UserMailer to send a welcome email after save
-        UserMailer.with(user: current_user).welcome_email(current_user).deliver_now
+        UserMailer.with(user: current_user).follow_email(current_user).deliver_now
 
         format.html { redirect_to subscriptions_path, notice: 'Sub was successfully created.' }
         format.json { render :show, status: :created, location: @sub }
