@@ -1,12 +1,19 @@
 <%# _followeds.html.erb %>
 
+<h6>Users you aren't following</h6>
 
-
+<%= form_for Subscription.new, method: :post do |f| %>
+  <%= f.select :followed_id, options_for_select(unfollowed.collect { |u| [u.email, u.id] }) %>
+  <%= f.text_field :follower_id, value: current_user.id, type: :hidden %>
+  <%= button_tag "Follow", type: 'submit', class: "btn btn-sm btn-primary" %>
+<% end %>
 
 <hr />
 
+<h6>Users you are following</h6>
+
 <ul>
-  <% subscriptions.each do |s| %>
+  <% subscription.each do |s| %>
     <li>
       <%= s.follower.email %> -> <%= s.followed.email %>
       <div class="pull-right">

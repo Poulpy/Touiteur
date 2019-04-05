@@ -1,0 +1,10 @@
+<%# Show the users following the touits of the current user %>
+
+<h4>Your followers</h4>
+
+<% current_user.followers.each do |user| %>
+  <%= user.email %>
+<% end %>
+
+
+<hr />

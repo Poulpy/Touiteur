@@ -26,9 +26,22 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions
   # POST /subscriptions.json
   def create
-    @user = current_user
-    Subscription.create follower_id: @user.id, followed_id: params[:user_id]
-    redirect_to subscriptions_path
+    # @user = current_user
+    # Subscription.create follower_id: @user.id, followed_id: params[:user][:id]
+    # redirect_to subscriptions_path
+    @sub = Subscription.new(subscription_params)
+
+    respond_to do |format|
+      if @sub.save
+        format.html { redirect_to subscriptions_path, notice: 'Sub was successfully created.' }
+        format.json { render :show, status: :created, location: @sub }
+        format.js
+      else
+        format.html { render :new }
+        format.json { render json: @sub.errors, status: :unprocessable_entity }
+        format.js
+      end
+    end
   end
 
   # PATCH/PUT /subscriptions/1
