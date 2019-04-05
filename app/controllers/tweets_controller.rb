@@ -25,13 +25,6 @@ class TweetsController < ApplicationController
   def edit
   end
 
-  # POST /tweets
-  # POST /tweets.json
-  # def create
-  #   @content = params[:tweet][:content]
-  #   @user_id = current_user.id
-  #   Tweet.create content:@content, user_id: @user_id
-  # end
   def create
     @tweet = Tweet.new(tweet_params)
 

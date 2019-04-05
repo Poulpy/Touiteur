@@ -66,8 +66,13 @@ class Admin::UsersController < ApplicationController
   def destroy
     #puts params[:user][:id]
     #User.find(params[:user][:id]).delete
-    User.find(params[:user][:id]).delete
-    redirect_to admin_path
+    
+
+    User.find(params[:id]).destroy
+    respond_to do |format|
+      format.html { redirect_to admin_root_path, notice: 'User was successfully destroyed.' }
+      format.json { head :no_content }
+    end
   end
 
   private
