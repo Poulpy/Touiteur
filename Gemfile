@@ -73,3 +73,5 @@ gem 'devise'
 
 gem 'font-awesome-rails'
 gem "rolify"
+
+#gem "aws-sdk-s3", require: false

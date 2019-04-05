@@ -8,6 +8,8 @@ class Admin::UsersController < ApplicationController
   # GET /users.json
   def index
     @users = User.all
+
+
   end
 
   # GET /users/1
@@ -27,7 +29,7 @@ class Admin::UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    @user = User.new(post_params)
 
     respond_to do |format|
       if @user.save
@@ -64,11 +66,7 @@ class Admin::UsersController < ApplicationController
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
-    #puts params[:user][:id]
-    #User.find(params[:user][:id]).delete
-    
-
-    User.find(params[:id]).destroy
+    @user.destroy
     respond_to do |format|
       format.html { redirect_to admin_root_path, notice: 'User was successfully destroyed.' }
       format.json { head :no_content }
@@ -84,11 +82,16 @@ class Admin::UsersController < ApplicationController
 
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      #@user = User.find(params[:id])
+      @user = User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :password)
     end
+
+    def post_params
+      params.require(:user).permit(:name, :password, :image)
+    end
+
 end

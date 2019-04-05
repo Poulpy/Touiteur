@@ -1,6 +1,9 @@
 <%# app/assets/views/subscriptions/index.html.erb %>
 <h3>Followers & followeds</h3>
 
+
+<%= current_user.image %>
+
 <div id="subs">
   <%= render partial: "followeds", locals: { subscriptions: @subscriptions, unfollowed: current_user.unfollowed } %>
 </div>
