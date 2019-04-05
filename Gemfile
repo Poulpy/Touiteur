@@ -75,3 +75,4 @@ gem 'font-awesome-rails'
 gem "rolify"
 
 #gem "aws-sdk-s3", require: false
+gem 'gutentag', '~> 2.5'
