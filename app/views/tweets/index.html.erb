@@ -1,5 +1,7 @@
 <h3>Page des tweets</h3>
 
+<%= Rails.application.config.action_mailer.smtp_settings %>
+
 <%# Add a tweet %>
 <%= form_tag tweets_path, class: "form-signin", method: :post, remote: true do %>
   <input type="text" name="tweet[content]" />
