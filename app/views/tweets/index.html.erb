@@ -1,9 +1,5 @@
 <h3>Page des tweets</h3>
 
-<% if current_user.avatar.attached? %>
-<%= image_tag current_user.image %>
-<% end %>
-
 <%# Add a tweet %>
 <%= form_tag tweets_path, class: "form-signin", method: :post, remote: true do %>
   <input type="text" name="tweet[content]" />

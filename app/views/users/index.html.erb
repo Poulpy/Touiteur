@@ -1,0 +1,13 @@
+<h1>Profile</h1>
+
+<div class="container">
+  <%= image_tag current_user.avatar, class: 'img-responsive', width: 210 %>
+
+
+  <%= current_user.name %>
+  <%= current_user.email %>
+
+  <button type="button" class="btn btn-success btn-sm">Follow</button>
+
+  <%= link_to 'Settings', edit_user_registration_path, class: "btn btn-primary btn-sm" %>
+</div>
