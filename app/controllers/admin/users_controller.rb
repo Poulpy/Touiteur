@@ -1,15 +1,16 @@
 class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
-
   before_action :is_admin?, only: [:admin]
+  
+
+  include DICOM
+
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
-
-
   end
 
   # GET /users/1
@@ -60,9 +61,6 @@ class Admin::UsersController < ApplicationController
   end
 
 
-
-
-
   # DELETE /users/1
   # DELETE /users/1.json
   def destroy
@@ -73,25 +71,27 @@ class Admin::UsersController < ApplicationController
     end
   end
 
+
   private
-    def is_admin?
-      r = current_user.has_role? :admin
-      redirect_to root_path, notice: "Access denied" unless r
-      r
-    end
 
-    # Use callbacks to share common setup or constraints between actions.
-    def set_user
-      @user = User.find(params[:id])
-    end
+  def is_admin?
+    r = current_user.has_role? :admin
+    redirect_to root_path, notice: "Access denied" unless r
+    r
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def user_params
-      params.require(:user).permit(:name, :password)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_user
+    @user = User.find(params[:id])
+  end
 
-    def post_params
-      params.require(:user).permit(:name, :password, :image)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name, :password)
+  end
+
+  def post_params
+    params.require(:user).permit(:name, :password, :image)
+  end
 
 end

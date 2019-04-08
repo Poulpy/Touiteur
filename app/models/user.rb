@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :likes
   has_many :tweets, through: :likes
 
+  
+
 
   # add a default role to a user just created
   def assign_default_role
@@ -26,14 +28,14 @@ class User < ApplicationRecord
   end
 
   def unfollowed
-      User.find(User.all.ids - self.followeds.ids)
+    User.find(User.all.ids - self.followeds.ids)
   end
 
   def tweets_of_followeds
-      self.followeds.ids.each do |f|
-          t = Tweet.where(user_id: i).first
-          yield(t)
-      end
+    self.followeds.ids.each do |f|
+      t = Tweet.where(user_id: i).first
+      yield(t)
+    end
   end
 
 

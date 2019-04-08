@@ -10,11 +10,7 @@ Rails.application.routes.draw do
 
     post :like, on: :member
     delete :unlike, on: :member
-
-    get :tags
   end
-  # post 'like' => 'tweets#like'
-  # delete 'like' => 'tweets#unlike'
 
   namespace :admin do
     root to: "users#index"
