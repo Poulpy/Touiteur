@@ -1,8 +1,10 @@
-<h3>Users</h3>
+<h3>Administrator page</h3>
 
+<%= render partial: 'stats' %>
 
+<h5>Users</h5>
 
-<ul class="list-group col-4">
+<ul class="list-group col-6">
   <% @users.each do |user| %>
     <li class="list-group-item">
       <%= user.email %>

@@ -1,0 +1,17 @@
+<%# _stats.html.erb %>
+
+<%# CHARTS %>
+
+<hr/>
+
+<h5>Number of users who has signed in</h5>
+<%= line_chart User.group_by_day(:created_at).count, label: "Users ", xtitle: "Time", ytitle: "Number of users" %>
+<hr/>
+
+<h5>Number of likes per touits</h5>
+<%= pie_chart Like.group(:tweet_id).count %>
+<hr/>
+
+<h5>Touits per day</h5>
+<%= column_chart Tweet.group_by_hour_of_day(:created_at, format: "%l %P").count %>
+<hr/>

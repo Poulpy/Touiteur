@@ -76,3 +76,6 @@ gem "rolify"
 
 #gem "aws-sdk-s3", require: false
 gem 'gutentag', '~> 2.5'
+gem 'chartkick'
+gem 'groupdate'
+

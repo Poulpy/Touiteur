@@ -12,4 +12,8 @@ class Tweet < ApplicationRecord
   def user_like(user)
     return Like.where(user_id: user.id, tweet_id: self.id).first
   end
+
+  def child_tweets_count
+    Tweet.where(tweet_id: self.id).count
+  end
 end
