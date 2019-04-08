@@ -25,7 +25,9 @@ class TweetsController < ApplicationController
   end
 
   def create
+
     @tweet = Tweet.new(tweet_params)
+    @tweet.tag_names = params[:tweet][:content].scan(/#[A-Za-z]*/)# extracting the tags
 
     respond_to do |format|
       if @tweet.save
