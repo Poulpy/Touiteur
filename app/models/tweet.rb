@@ -3,14 +3,13 @@ class Tweet < ApplicationRecord
 
   has_many :tweets
   belongs_to :tweet, optional: true
+  
+  has_many :likes
+  has_many :users, through: :likes
 
-  has_many :likes, foreign_key: 'tweet_id', class_name: 'Like'
-  has_many :users, through: :likes, class_name: 'User'
+  Gutentag::ActiveRecord.call self
 
-  # has_many :child_tweets, foreign_key: "parent_id", class_name: "Reply"
-  # has_many :childs, through: :child_tweets
-
-  # has_many :parent_tweets, foreign_key: "child_id", class_name: "Reply"
-  # has_many :parents, through: :parent_tweets
-
+  def user_like(user)
+    return Like.where(user_id: user.id, tweet_id: self.id).first
+  end
 end

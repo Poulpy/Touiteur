@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_tweet, only: [:show, :edit, :update, :destroy]
+  before_action :set_tweet, only: [:show, :edit, :update, :destroy, :like, :unlike]
   before_action :set_tweets, only: [:index, :create]
 
   # GET /tweets
@@ -65,6 +65,24 @@ class TweetsController < ApplicationController
   end
 
 
+  def like
+    @like = Like.new(tweet_id: @tweet.id, user_id: current_user.id)
+
+    if @like.save
+      flash[:success] = 'Vous avez laiké un touit !'
+    end
+
+    redirect_to tweets_path
+  end
+
+
+  def unlike
+    @like = Like.where(tweet_id: @tweet.id, user_id: current_user.id).first
+    @like.destroy if @like
+    redirect_to tweets_path
+  end
+
+
   def reply
     
   end
@@ -85,5 +103,9 @@ class TweetsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
       params.require(:tweet).permit(:content, :user_id, :tweet_id)
+    end
+
+    def like_params
+      params.require(:like).permit(:user_id, :tweet_id)
     end
 end

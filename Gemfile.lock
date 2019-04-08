@@ -97,6 +97,8 @@ GEM
       railties (>= 3.2, < 6.0)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    gutentag (2.5.0)
+      activerecord (>= 3.2.0)
     i18n (1.6.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.0)
@@ -252,6 +254,7 @@ DEPENDENCIES
   coffee-rails (~> 4.2)
   devise
   font-awesome-rails
+  gutentag (~> 2.5)
   jbuilder (~> 2.5)
   jquery-rails
   kaminari

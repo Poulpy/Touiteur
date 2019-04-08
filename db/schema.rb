@@ -56,12 +56,12 @@ ActiveRecord::Schema.define(version: 2019_04_08_065748) do
     t.index ["taggings_count"], name: "index_gutentag_tags_on_taggings_count"
   end
 
-  create_table "likes", force: :cascade do |t|
+create_table "likes", force: :cascade do |t|
     t.integer "tweet_id"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
+end
 
   create_table "replies", force: :cascade do |t|
     t.integer "parent_id"

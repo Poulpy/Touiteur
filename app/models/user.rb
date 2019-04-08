@@ -16,8 +16,8 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  has_many :likes, foreign_key: 'user_id', class_name: 'Like'
-  has_many :tweets, through: :likes, class_name: 'Tweet'
+  has_many :likes
+  has_many :tweets, through: :likes
 
 
   # add a default role to a user just created

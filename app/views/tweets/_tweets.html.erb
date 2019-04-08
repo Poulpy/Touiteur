@@ -1,6 +1,8 @@
 <% tweets.each do |t| %>
 
 <div class="card gedf-card">
+
+  <%# HEADER %>
   <div class="card-header">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex justify-content-between align-items-center">
@@ -32,10 +34,17 @@
     </div>
   </div>
 
+  <%# BODY %>
   <div class="card-body">
     <p class="card-text">
       <%= t.content %>
+      <% t.tag_names.each do |tag| %>
+        #<%= tag %>
+      <% end %>
+      Likes : <%= t.likes.count %>
       <div class="text-muted h7 mb-2">
+
+        <%# ANSWERS %>
         <% t.tweets.each do |r| %>
           <p class="ml-5">
             <%= r.user.email %>
@@ -46,10 +55,18 @@
     </p>
   </div>
 
+  <%# FOOTER %>
   <div class="card-footer">
-    <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
+
+    <% unless t.user_like(current_user) %>
+        <%= link_to "LIKE", like_tweet_path(t), method: :post, class: "card-link" %>
+    <% else %>
+      <%= link_to "UNLIKE", unlike_tweet_path(t), method: :delete, class: "card-link" %>
+    <% end %>
+
+
     <a type="button" class="card-link" data-toggle="modal" data-target="#modal-<%= t.id %>">
-       <i class="fa fa-comment"></i> Reply
+      <i class="fa fa-comment"></i> Reply
     </a>
 
     <div class="modal fade" id="modal-<%= t.id %>" tabindex="-1" role="dialog" aria-labelledby="modal-<%= t.id %>" aria-hidden="true">

@@ -16,10 +16,14 @@
   <% subscriptions.each do |s| %>
     <li class="list-group-item">
       <%= s.followed.email %>
+
       <div class="pull-right">
         <%= link_to "Unfollow", s, method: :delete, class: "btn btn-sm btn-outline-danger" %>
       </div>
+
     </li>
+
     <br />
+    
   <% end %>
 </ul>
