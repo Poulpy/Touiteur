@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Twitter</title>
+    <title>Touiteur</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
@@ -28,6 +28,14 @@
 
   </body>
   <footer>
-    <%= flash[:message] %>
+    <%= flash.each do |name, msg| %>
+      <div class="alert alert-<%= name %>" role="alert">
+        <%= msg %>
+      </div>
+    <% end %>
+
+    <%= link_to "https://github.com/Poulpy/Touiteur", class: "nav-link" do %>
+      <%= fa_icon 'github' %> Repain Paul
+    <% end %>
   </footer>
 </html>

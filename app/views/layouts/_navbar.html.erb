@@ -1,33 +1,40 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="/">Touiteure</a>
+
+    <a class="navbar-brand" href="/">Touiteur</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <%= link_to "Users", subscriptions_path, class: "nav-link" %>
+          <%= link_to subscriptions_path, class: "nav-link" do %>
+            <%= fa_icon "exchange" %> Subscriptions
+          <% end %>
         </li>
 
         <li class="nav-item">
-          <%= link_to "Profile", users_path, class: "nav-link" %>
+          <%= link_to users_path, class: "nav-link" do %>
+            <%= fa_icon "user" %> Profile
+          <% end %>
         </li>
       </ul>
 
 
       
       <ul class="navbar-nav navbar-nav-right">
+
         <% if user_signed_in? and current_user.has_role?(:admin) %>
           <li class="nav-item">
             <%= link_to admin_root_path, class: "nav-link" do %>
-              <%= fa_icon "cog" %>
-              Admin
+              <%= fa_icon "cog" %> Admin
             <% end %>
           </li>
         <% end %>
 
         <%= login_logout %>
+
       </ul>
     </div>
   </div>
