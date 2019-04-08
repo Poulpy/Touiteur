@@ -41,7 +41,6 @@
       <% t.tag_names.each do |tag| %>
         #<%= tag %>
       <% end %>
-      Likes : <%= t.likes.count %>
       <div class="text-muted h7 mb-2">
 
         <%# ANSWERS %>
@@ -59,9 +58,9 @@
   <div class="card-footer">
 
     <% unless t.user_like(current_user) %>
-        <%= link_to "LIKE", like_tweet_path(t), method: :post, class: "card-link" %>
+        <%= link_to (fa_icon 'heart')+' '+t.likes.count.to_s, like_tweet_path(t), method: :post, class: "card-link" %>
     <% else %>
-      <%= link_to "UNLIKE", unlike_tweet_path(t), method: :delete, class: "card-link" %>
+      <%= link_to (fa_icon 'heart')+' '+t.likes.count.to_s, unlike_tweet_path(t), method: :delete, class: "card-link" %>
     <% end %>
 
 
@@ -85,16 +84,23 @@
               <input type="hidden" name="tweet[user_id]" value="<%= current_user.id %>" />
               <button class="btn btn-sm btn-primary" type="submit">Reply</button>
             <% end %>
-            </div>
           </div>
         </div>
       </div>
-
-      <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
-      </div>
     </div>
 
-  <br>
+    <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+
+    <div class="pull-right">
+      <% t.tag_names.each do |tag| %>
+        <span class="badge badge-primary"><%= tag %></span>
+      <% end %>
+    </div>
+
+    </div>
+  </div>
+
+  <br />
 <% end %>
 
 <%= paginate @tweets, theme: 'twitter-bootstrap-4' %>
