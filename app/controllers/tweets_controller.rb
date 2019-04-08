@@ -1,4 +1,6 @@
 class TweetsController < ApplicationController
+  include ActionView::Helpers::UrlHelper
+
   before_action :authenticate_user!
   before_action :set_tweet, only: [:show, :edit, :update, :destroy, :like, :unlike]
   before_action :set_tweets, only: [:index, :create]
@@ -27,7 +29,32 @@ class TweetsController < ApplicationController
   def create
 
     @tweet = Tweet.new(tweet_params)
-    @tweet.tag_names = params[:tweet][:content].scan(/#[A-Za-z]*/)# extracting the tags
+    content = params[:tweet][:content]
+    @tweet.tag_names = content.scan(/#[A-Za-z]*/)# extracting the tags
+
+    tag_hash = Hash.new
+
+    @tweet.tag_names.each do |tag|
+      word = tag[1..-1]
+      tag_hash[tag] = link_to tag, tweets_path(tag: word)
+    end
+
+    tag_hash.each do |k, v|
+      content.gsub! k, v
+    end
+
+    @tweet.content = content
+
+
+    # links = Hash.new
+    # @tweet.tag_names.each do |tag|
+    #   links[tag] = tweet_link_to_tag_page tag
+    # end
+    #links = Hash[@tweet.tag_names { |tag| [tag, tweet_link_to_tag_page tag] } ]
+
+    # Tweet.all.each do |t|
+
+    # end
 
     respond_to do |format|
       if @tweet.save
@@ -98,7 +125,13 @@ class TweetsController < ApplicationController
 
     def set_tweets
       @tweets = Tweet.where(user_id: [current_user.followeds.ids])
-      @tweets = @tweets.where(tweet_id: nil)
+
+      if params.has_key? :tag 
+        @tweets = @tweets.tagged_with(:names => ["#"+params[:tag]], match: :any)
+      else 
+         @tweets = @tweets.where(tweet_id: nil)
+      end
+
       @tweets = @tweets.order("created_at DESC").page(params[:page]).per(5)
     end
 

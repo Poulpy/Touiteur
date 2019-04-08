@@ -37,14 +37,14 @@
   <%# BODY %>
   <div class="card-body">
     <p class="card-text">
-      <%= t.content %>
+      <%= t.content.html_safe %>
       <div class="text-muted h7 mb-2">
 
         <%# ANSWERS %>
         <% t.tweets.each do |r| %>
           <p class="ml-5">
             <%= r.user.email %>
-            <%= r.content %>
+            <%= r.content.html_safe %>
           </p>
         <% end %>
       </div>
