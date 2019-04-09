@@ -1,21 +1,5 @@
 <h3>Page des touits</h3>
 
-<hr />
-
-<%
-  ability = Ability.new(current_user)
-  
-%>
-
-
-
-<%= ability.can?(:create, Tweet.last) %>
-<%= ability.can?(:new, Tweet.last) %>
-
-<%= ability.can?(:index, Tweet.last) %>
-<%= ability.can?(:create, Tweet.new) %>
-
-<hr />
 
 <%# Add a tweet %>
 <%= form_tag tweets_path, class: "form-signin", method: :post, remote: true do %>
