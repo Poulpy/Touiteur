@@ -80,4 +80,7 @@ gem 'chartkick'
 gem 'groupdate'
 
 gem 'cancancan'
+#gem 'elasticsearch', '~> 6.2.0'
+#gem 'searchkick'
+
 

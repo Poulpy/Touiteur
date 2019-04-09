@@ -1,5 +1,8 @@
 class SubscriptionsController < ApplicationController
+  
+  load_and_authorize_resource
   before_action :authenticate_user!
+  before_action :set_subscriptions, only: [:create, :destroy]
 
   # GET /subscriptions
   # GET /subscriptions.json
@@ -70,14 +73,17 @@ class SubscriptionsController < ApplicationController
     @subscription.destroy
 
     respond_to do |format|
-      format.html { redirect_to subscriptions_url, notice: 'Sub was successfully destroyed.' }
+      format.html { redirect_to subscription, notice: 'Sub was successfully destroyed.' }
       format.json { head :no_content }
+      format.js
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-
+    def set_subscriptions
+      @subscriptions = Subscription.all
+    end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def subscription_params

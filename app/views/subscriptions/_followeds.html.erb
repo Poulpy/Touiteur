@@ -12,14 +12,14 @@
 
 <h6>Users you are following</h6>
 
-<ul class="list-group col-4">
+<ul class="list-group col-5">
   <% subscriptions.each do |s| %>
 
     <li class="list-group-item">
       <%= s.followed.email %>
       <div class="pull-right">
         <%= link_to "Profile", user_path(s.followed.id), class: "btn btn-sm btn-outline-primary" %>
-        <%= link_to "Unfollow", s, method: :delete, class: "btn btn-sm btn-outline-danger" %>
+        <%= link_to "Unfollow", s, method: :delete, remote: true, class: "btn btn-sm btn-outline-danger" %>
       </div>
     </li>
 
