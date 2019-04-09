@@ -4,6 +4,12 @@
 
 <%= image_tag(current_user.avatar, size: "64x64") if current_user.avatar.attached? %>
 
+<%# DEBUG %>
+<%#= current_user.unfollowed %>
+
+<%#= User.all.ids - current_user.followeds.ids %>
+<%# DEBUG %>
+
 <div id="subs">
   <%= render partial: "followeds", locals: { subscriptions: @subscriptions, unfollowed: current_user.unfollowed } %>
 </div>
