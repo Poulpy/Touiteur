@@ -9,6 +9,9 @@
     <li class="list-group-item">
       <%= user.email %>
       <div class="pull-right">
+
+        <%= link_to "Profile", user_path(user.id), class: "btn btn-sm btn-outline-primary" %>
+
         <%= link_to "Delete", admin_user_path(user.id), method: :delete, class: "btn btn-sm btn-outline-danger" %>
       </div>
     </li>
