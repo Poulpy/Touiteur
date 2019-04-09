@@ -78,4 +78,6 @@ gem "rolify"
 gem 'gutentag', '~> 2.5'
 gem 'chartkick'
 gem 'groupdate'
-gem 'dicom'
+
+gem 'cancancan'
+

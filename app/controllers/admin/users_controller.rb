@@ -4,9 +4,6 @@ class Admin::UsersController < ApplicationController
   before_action :is_admin?, only: [:admin]
   
 
-  include DICOM
-
-
   # GET /users
   # GET /users.json
   def index

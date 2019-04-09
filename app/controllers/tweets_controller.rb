@@ -2,8 +2,11 @@ class TweetsController < ApplicationController
   include ActionView::Helpers::UrlHelper
 
   before_action :authenticate_user!
+  load_and_authorize_resource
+    
   before_action :set_tweet, only: [:show, :edit, :update, :destroy, :like, :unlike]
   before_action :set_tweets, only: [:index, :create]
+
 
   # GET /tweets
   # GET /tweets.json
@@ -19,7 +22,7 @@ class TweetsController < ApplicationController
 
   # GET /tweets/new
   def new
-    @tweet = Tweet.new
+    #@tweet = Tweet.new
   end
 
   # GET /tweets/1/edit
@@ -27,34 +30,26 @@ class TweetsController < ApplicationController
   end
 
   def create
-
     @tweet = Tweet.new(tweet_params)
+
+    # extracting the tags from the content of the touit
     content = params[:tweet][:content]
-    @tweet.tag_names = content.scan(/#[A-Za-z]*/)# extracting the tags
+    @tweet.tag_names = content.scan(/#[A-Za-z0-9]*/)
 
+    # creating the links for each tag
     tag_hash = Hash.new
-
     @tweet.tag_names.each do |tag|
-      word = tag[1..-1]
+      word = tag[1..-1]# we erase the first character, #, for the link
       tag_hash[tag] = link_to tag, tweets_path(tag: word)
     end
 
+    # replacing tags with links
     tag_hash.each do |k, v|
       content.gsub! k, v
     end
 
     @tweet.content = content
 
-
-    # links = Hash.new
-    # @tweet.tag_names.each do |tag|
-    #   links[tag] = tweet_link_to_tag_page tag
-    # end
-    #links = Hash[@tweet.tag_names { |tag| [tag, tweet_link_to_tag_page tag] } ]
-
-    # Tweet.all.each do |t|
-
-    # end
 
     respond_to do |format|
       if @tweet.save
@@ -124,12 +119,11 @@ class TweetsController < ApplicationController
     end
 
     def set_tweets
-      @tweets = Tweet.where(user_id: [current_user.followeds.ids])
-
+      # if the user wants to see the tags related to a tag
       if params.has_key? :tag 
-        @tweets = @tweets.tagged_with(:names => ["#"+params[:tag]], match: :any)
-      else 
-         @tweets = @tweets.where(tweet_id: nil)
+        @tweets = Tweet.accessible_by(current_ability).tagged_with(:names => ["#"+params[:tag]], match: :any)
+      else
+        @tweets = Tweet.accessible_by(current_ability).where(tweet_id: nil)
       end
 
       @tweets = @tweets.order("created_at DESC").page(params[:page]).per(5)

@@ -11,6 +11,7 @@
 
   <body>
     <header>
+      <%# NAVIGATION BAR %>
       <%= render "layouts/navbar" %>
     </header>
 
@@ -19,6 +20,9 @@
       <div class="container">
         <div class="row">
           <div class="col-12">
+            <%# ERROR / SUCCESS MESSAGE %>
+            <%= render "layouts/message" %>
+            <br><br>
             <%= yield %>
           </div>
         </div>
@@ -28,12 +32,7 @@
 
   </body>
   <footer>
-    <%= flash.each do |name, msg| %>
-      <div class="alert alert-<%= name %>" role="alert">
-        <%= msg %>
-      </div>
-    <% end %>
-
+    <%# LINK TO GITHUB REPOSITORY %>
     <%= link_to "https://github.com/Poulpy/Touiteur", class: "nav-link" do %>
       <%= fa_icon 'github' %> Repain Paul
     <% end %>

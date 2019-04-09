@@ -1,0 +1,59 @@
+# frozen_string_literal: true
+
+class Ability
+  include CanCan::Ability
+
+  def initialize(user)
+    # Define abilities for the passed in user here. For example:
+    #
+    #   user ||= User.new # guest user (not logged in)
+    #   if user.admin?
+    #     can :manage, :all
+    #   else
+    #     can :read, :all
+    #   end
+    #
+    # The first argument to `can` is the action you are giving the user
+    # permission to do.
+    # If you pass :manage it will apply to every action. Other common actions
+    # here are :read, :create, :update and :destroy.
+    #
+    # The second argument is the resource the user can perform the action on.
+    # If you pass :all it will apply to every resource. Otherwise pass a Ruby
+    # class of the resource.
+    #
+    # The third argument is an optional hash of conditions to further filter the
+    # objects.
+    # For example, here the user can only update published articles.
+    #
+    #   can :update, Article, :published => true
+    #
+    # See the wiki for details:
+    # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
+
+    # any anonymous user can create a User (sign up)
+    can :create, User, public: true
+
+    if user.present?
+      # a logged User can :
+      # see his own profile, modify it, or delete it
+      can :show, User, id: user.id
+      can :show, User, id: user.followeds.ids
+      can [:read, :update, :destroy], User, id: user.id
+
+      can [:new, :create], Like
+      # touit, like, unlike a touit
+      can [:create, :update, :destroy], Tweet
+      can :read, Tweet, user_id: user.id
+      can :read, Tweet, user_id: user.followeds.ids
+
+      # follow or unfollow a User
+      can [:create, :destroy], Subscription, follower_id: user.id
+
+      if user.has_role?(:admin)
+        can :manage, :all
+      end
+
+    end
+  end
+end

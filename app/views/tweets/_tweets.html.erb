@@ -75,7 +75,8 @@
             </button>
           </div>
           <div class="modal-body">
-            <%= form_tag tweets_path, class: "form-signin", method: :post, remote: true, class: "reply-form" do %>
+            <%= form_tag tweets_path, class: "form-signin", method: :post, remote: true do %>
+            <!--, class: "reply-form" -->
               <input type="text" name="tweet[content]" />
               <input type="hidden" name="tweet[tweet_id]" value="<%= t.id %>" />
               <input type="hidden" name="tweet[user_id]" value="<%= current_user.id %>" />
