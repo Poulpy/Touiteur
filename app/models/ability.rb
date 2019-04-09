@@ -37,13 +37,11 @@ class Ability
     if user.present?
       # a logged User can :
       # see his own profile, modify it, or delete it
-      can :show, User, id: user.id
+      can [:show, :read, :update, :destroy], User, id: user.id
       can :show, User, id: user.followeds.ids
-      can [:read, :update, :destroy], User, id: user.id
 
-      can [:new, :create], Like
       # touit, like, unlike a touit
-      can [:create, :update, :destroy], Tweet
+      can [:create, :update, :destroy, :like, :unlike], Tweet
       can :read, Tweet, user_id: user.id
       can :read, Tweet, user_id: user.followeds.ids
 
