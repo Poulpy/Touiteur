@@ -46,7 +46,7 @@ class Ability
       can :read, Tweet, user_id: user.followeds.ids
 
       # follow or unfollow a User
-      can [:create, :destroy], Subscription, follower_id: user.id
+      can [:read, :create, :destroy], Subscription, follower_id: user.id
 
       if user.has_role?(:admin)
         can :manage, :all

@@ -83,4 +83,6 @@ gem 'cancancan'
 #gem 'elasticsearch', '~> 6.2.0'
 #gem 'searchkick'
 
+gem 'nested_form'
+
 

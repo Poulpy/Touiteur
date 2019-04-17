@@ -17,5 +17,6 @@
 //= require bootstrap
 //= require Chart.bundle
 //= require chartkick
+//= require jquery_nested_form
 //= require_tree .
 

@@ -8,7 +8,7 @@
 
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        
+
         <li class="nav-item">
           <%= link_to subscriptions_path, class: "nav-link" do %>
             <%= fa_icon "exchange" %> Subscriptions
@@ -26,10 +26,16 @@
       </ul>
 
 
-      
+
       <ul class="navbar-nav navbar-nav-right">
 
         <% if user_signed_in? and current_user.has_role?(:admin) %>
+<!--           <li class="nav-item">
+            <%= link_to new_admin_user_path, class: "nav-link" do %>
+              Create users
+            <% end %>
+          </li> -->
+
           <li class="nav-item">
             <%= link_to admin_root_path, class: "nav-link" do %>
               <%= fa_icon "cog" %> Admin

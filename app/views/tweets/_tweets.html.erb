@@ -10,7 +10,7 @@
           <% if t.user.avatar.attached? %>
             <%= image_tag t.user.avatar, width: 45, class: 'rounded-circle' %>
           <% else %>
-            <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
+            <%= image_tag asset_path("pas-de-photo.png"), width: 45, class: 'rounded-circle' %>
           <% end %>
         </div>
         <div class="ml-2">

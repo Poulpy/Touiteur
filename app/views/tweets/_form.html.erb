@@ -1,4 +1,6 @@
-<%= form_with(model: tweet, local: true) do |form| %>
+<%# NESTED FORM %>
+
+<%= nested_form_for current_user do |f| %>
   <% if tweet.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(tweet.errors.count, "error") %> prohibited this tweet from being saved:</h2>
@@ -11,17 +13,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :content %>
-    <%= form.text_field :content %>
-  </div>
+  <%= f.fields_for :tweets do |t_form| %>
+    <% if t_form.object.new_record? %>
 
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
+      <div class="field">
+        <%= t_form.label :content %>
+        <%= t_form.text_field :content, class: 'form-control' %>
+      </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+      <%= t_form.hidden_field :user_id, {value: current_user.id} %>
+
+      <div class="actions">
+        <%= t_form.submit %>
+      </div>
+    <% else %>
+      <%= t_form.object.content %>
+    <% end %>
+    <%= t_form.link_to_remove "Delete touit" %>
+  <% end %>
+
+
+  <%= f.link_to_add "Add a touit", :tweets %>
 <% end %>

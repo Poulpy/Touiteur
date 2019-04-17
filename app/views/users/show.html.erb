@@ -1,11 +1,7 @@
 <h1>Profile</h1>
 
 <div class="container">
-  <% if @user.avatar.attached? %>
-    <%= image_tag current_user.avatar, class: 'img-responsive', width: 210 %>
-  <% else %>
-    <%= image_tag asset_path("pas-de-photo.png") %>
-  <% end %>
+  <%= avatar @user %>
 
   <%= @user.name %>
   <%= @user.email %>

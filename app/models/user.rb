@@ -7,7 +7,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-         
+
   has_many :followers_subscriptions, foreign_key: "followed_id", class_name: "Subscription"
   has_many :followers, through: :followers_subscriptions
 
@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_many :likes
   has_many :tweets, through: :likes
 
-  
+  accepts_nested_attributes_for :tweets, allow_destroy: true
 
 
   # add a default role to a user just created

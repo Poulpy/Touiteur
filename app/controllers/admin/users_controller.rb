@@ -2,7 +2,7 @@ class Admin::UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :is_admin?, only: [:admin]
-  
+
 
   # GET /users
   # GET /users.json
@@ -88,7 +88,7 @@ class Admin::UsersController < ApplicationController
   end
 
   def post_params
-    params.require(:user).permit(:name, :password, :image)
+    params.require(:user).permit(:name, :password, :image, tweets_attributes: [:user_id, :tweet_id, :_destroy])
   end
 
 end
