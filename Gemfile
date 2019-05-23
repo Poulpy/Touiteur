@@ -85,4 +85,4 @@ gem 'cancancan'
 
 gem 'nested_form'
 
-
+gem 'rails-erd', group: :development
