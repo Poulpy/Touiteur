@@ -10,6 +10,15 @@
 
 You can also download the .zip from the github repository.
 
+
+
+
+* Install gems
+`bundle install`
+
+* Run migrations
+`rake db:migrate`
+
 * Start server
 `rails server`
 
