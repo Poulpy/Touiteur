@@ -7,8 +7,14 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 
-
-
+set :user, "vagrant"
+server "192.168.33.101", user: 'vagrant', roles: [:web, :app, :db], primary: true
+set :deploy_to, "/var/www/touiteur"
+set :use_sudo,        false
+set :rails_env,       "production"
+set :stage,           :production
+set :linked_dirs,     %w{log storage tmp/pids tmp/cache tmp/sockets vendor/bundle public/system db/backups public/bin}
+set :ssh_options, {:forward_agent => true, keys: ['~/.ssh/id_rsa']}
 # role-based syntax
 # ==================
 

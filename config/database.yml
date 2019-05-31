@@ -30,4 +30,7 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  pool: 5
+  host: localhost
+  database: touiter

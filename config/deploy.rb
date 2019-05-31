@@ -1,8 +1,12 @@
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.11.0"
 
-set :application, "my_app_name"
-set :repo_url, "git@example.com:me/my_repo.git"
+set :application, "touiteur"
+set :scm, :git
+set :repository,  "git@github.com:Poulpy/Touiteur.git"
+set :scm_passphrase, ""
+
+set :default_run_options, {:pty => true}
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
