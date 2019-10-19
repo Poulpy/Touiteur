@@ -1,5 +1,5 @@
 class SubscriptionsController < ApplicationController
-  
+
   load_and_authorize_resource
   before_action :authenticate_user!
   before_action :set_subscriptions, only: [:create, :destroy]
@@ -7,7 +7,7 @@ class SubscriptionsController < ApplicationController
   # GET /subscriptions
   # GET /subscriptions.json
   def index
-    @subscriptions = Subscription.all
+    @subscriptions = Subscription.where(follower_id: current_user.id)
     @users = User.all
   end
 
