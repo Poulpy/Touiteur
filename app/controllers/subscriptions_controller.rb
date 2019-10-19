@@ -29,7 +29,7 @@ class SubscriptionsController < ApplicationController
   # POST /subscriptions
   # POST /subscriptions.json
   def create
-    @subscriptions = Subscription.all
+    @subscriptions = Subscription.where(follower_id: current_user.id)
     @sub = Subscription.new(subscription_params)
 
     respond_to do |format|
@@ -71,6 +71,7 @@ class SubscriptionsController < ApplicationController
     # .where.destroy_all
     @subscription = Subscription.find(params[:id])
     @subscription.destroy
+    @subscriptions = Subscription.where(follower_id: current_user.id)
 
     respond_to do |format|
       format.html { redirect_to subscription, notice: 'Sub was successfully destroyed.' }
