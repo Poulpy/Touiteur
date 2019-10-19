@@ -1,5 +1,8 @@
 # Touiteur
 
+Imitation of Twitter.
+
+
 ## Install
 
 * With HTTPS
@@ -17,7 +20,9 @@ You can also download the .zip from the github repository.
 `bundle install`
 
 * Run migrations
+`rake db:create`
 `rake db:migrate`
+`rake db:seed`
 
 * Start server
 `rails server`
@@ -27,5 +32,5 @@ Enter the following URL in your web browser
 
 ## Configuration
 
-Ruby  : 2.3.3
+Ruby  : 2.6.0
 Rails : 5.2.3
