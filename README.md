@@ -34,3 +34,10 @@ Enter the following URL in your web browser
 
 Ruby  : 2.6.0
 Rails : 5.2.3
+
+## TODOS
+
+- Solve security issues
+- Migrate from id to uuid
+- Better navbar
+- Better everything
