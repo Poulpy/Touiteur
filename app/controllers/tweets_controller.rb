@@ -51,7 +51,7 @@ class TweetsController < ApplicationController
 
 
     respond_to do |format|
-      if @tweet.save
+      if @tweet.save!
         format.html { redirect_to tweets_path, notice: 'Tweet was successfully created.' }
         format.json { render :show, status: :created, location: @tweet }
         format.js

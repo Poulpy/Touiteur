@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2019_10_26_165033) do
     t.string "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "tweet_id", default: -> { "gen_random_uuid()" }, null: false
+    t.uuid "tweet_id"
     t.uuid "user_id", default: -> { "gen_random_uuid()" }, null: false
   end
 
