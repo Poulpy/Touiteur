@@ -40,6 +40,7 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'nested_form'
 gem 'pg'
+gem 'pgcrypto'
 gem 'puma', '~> 3.11'
 gem 'rails', '~> 5.2.3'
 gem 'rails-erd', group: :development

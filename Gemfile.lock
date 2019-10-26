@@ -49,7 +49,7 @@ GEM
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
     arel (9.0.0)
-    autoprefixer-rails (9.6.5)
+    autoprefixer-rails (9.7.0)
       execjs
     bcrypt (3.1.13)
     bindex (0.8.1)
@@ -143,7 +143,7 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
-    loofah (2.3.0)
+    loofah (2.3.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -165,6 +165,7 @@ GEM
       mini_portile2 (~> 2.4.0)
     orm_adapter (0.5.0)
     pg (1.1.4)
+    pgcrypto (0.4.1)
     popper_js (1.14.5)
     public_suffix (4.0.1)
     puma (3.12.1)
@@ -299,6 +300,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   nested_form
   pg
+  pgcrypto
   puma (~> 3.11)
   rails (~> 5.2.3)
   rails-erd
