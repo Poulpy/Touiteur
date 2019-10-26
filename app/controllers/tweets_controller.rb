@@ -3,7 +3,7 @@ class TweetsController < ApplicationController
 
   before_action :authenticate_user!
   load_and_authorize_resource
-    
+
   before_action :set_tweet, only: [:show, :edit, :update, :destroy, :like, :unlike]
   before_action :set_tweets, only: [:index, :create]
 
@@ -81,7 +81,7 @@ class TweetsController < ApplicationController
   # DELETE /tweets/1.json
   def destroy
     @tweet.destroy
-    
+
     respond_to do |format|
       format.html { redirect_to tweets_url, notice: 'Tweet was successfully destroyed.' }
       format.json { head :no_content }
@@ -108,7 +108,7 @@ class TweetsController < ApplicationController
 
 
   def reply
-    
+
   end
 
 
@@ -120,7 +120,7 @@ class TweetsController < ApplicationController
 
     def set_tweets
       # if the user wants to see the tags related to a tag
-      if params.has_key? :tag 
+      if params.has_key? :tag
         @tweets = Tweet.accessible_by(current_ability).tagged_with(:names => ["#"+params[:tag]], match: :any)
       else
         @tweets = Tweet.accessible_by(current_ability).where(tweet_id: nil)
@@ -131,7 +131,7 @@ class TweetsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tweet_params
-      params.require(:tweet).permit(:content, :user_id, :tweet_id)
+      params.require(:tweet).permit(:content, :image, :user_id, :tweet_id)
     end
 
     def like_params

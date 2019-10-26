@@ -22,8 +22,9 @@
 
 
 <%# Add a tweet %>
-<%= form_tag tweets_path, class: "form-signin", method: :post, remote: true do %>
-  <input type="hidden" name="tweet[user_id]" value="<%= current_user.id %>" />
+<%= form_for Tweet.new, url: tweets_path, class: 'form-signin', method: :post, remote: true do |f| %>
+  <%= f.text_field :user_id, type: :hidden, value: current_user.id %>
+  <!--input type="hidden" name="tweet[user_id]" value="<%= current_user.id %>" /-->
 
   <div class="card gedf-card">
     <div class="card-header">
@@ -49,7 +50,8 @@
             <div class="tab-pane fade" id="images" role="tabpanel" aria-labelledby="images-tab">
                 <div class="form-group">
                     <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="customFile">
+                        <%= f.file_field :image, class: 'custom-file-input', id: 'customFile' %>
+                        <!--input type="file" class="custom-file-input" id="customFile"-->
                         <label class="custom-file-label" for="customFile">Upload image</label>
                     </div>
                 </div>
