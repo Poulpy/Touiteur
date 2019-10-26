@@ -41,3 +41,10 @@ Rails : 5.2.3
 - Migrate from id to uuid
 - Better navbar
 - Better everything
+
+### Notes
+
+To enable UUID:
+install gem pgcrypto
+do in psql CREATE EXTENSION pgcrypto
+

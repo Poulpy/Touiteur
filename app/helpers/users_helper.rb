@@ -11,7 +11,9 @@ module UsersHelper
   end
 
   def avatar user
-    return image_tag(current_user.avatar, class: 'img-responsive', width: 210) if user.avatar.attached?
+    if user.avatar.attached?
+      return image_tag user.avatar, class: 'img-responsive', width: 210
+    end
     image_tag asset_path("pas-de-photo.png")
   end
 

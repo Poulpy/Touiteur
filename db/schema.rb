@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_08_065748) do
+ActiveRecord::Schema.define(version: 2019_10_26_165033) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "active_storage_attachments", force: :cascade do |t|
@@ -36,18 +37,15 @@ ActiveRecord::Schema.define(version: 2019_04_08_065748) do
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
-  create_table "gutentag_taggings", id: :serial, force: :cascade do |t|
-    t.integer "tag_id", null: false
-    t.integer "taggable_id", null: false
+  create_table "gutentag_taggings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "taggable_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["tag_id"], name: "index_gutentag_taggings_on_tag_id"
-    t.index ["taggable_type", "taggable_id", "tag_id"], name: "unique_taggings", unique: true
-    t.index ["taggable_type", "taggable_id"], name: "index_gutentag_taggings_on_taggable_type_and_taggable_id"
+    t.uuid "taggable_id", default: -> { "gen_random_uuid()" }, null: false
+    t.uuid "tag_id", default: -> { "gen_random_uuid()" }, null: false
   end
 
-  create_table "gutentag_tags", id: :serial, force: :cascade do |t|
+  create_table "gutentag_tags", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -56,41 +54,38 @@ ActiveRecord::Schema.define(version: 2019_04_08_065748) do
     t.index ["taggings_count"], name: "index_gutentag_tags_on_taggings_count"
   end
 
-  create_table "likes", force: :cascade do |t|
-    t.integer "tweet_id"
-    t.integer "user_id"
+  create_table "likes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "tweet_id", default: -> { "gen_random_uuid()" }, null: false
+    t.uuid "user_id", default: -> { "gen_random_uuid()" }, null: false
   end
 
-  create_table "roles", force: :cascade do |t|
+  create_table "roles", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
-    t.bigint "resource_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
+    t.uuid "resource_id", default: -> { "gen_random_uuid()" }, null: false
     t.index ["name"], name: "index_roles_on_name"
-    t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
   end
 
-  create_table "subscriptions", force: :cascade do |t|
-    t.integer "follower_id"
-    t.integer "followed_id"
+  create_table "subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "follower_id", default: -> { "gen_random_uuid()" }, null: false
+    t.uuid "followed_id", default: -> { "gen_random_uuid()" }, null: false
   end
 
-  create_table "tweets", force: :cascade do |t|
+  create_table "tweets", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "content"
-    t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "tweet_id"
-    t.index ["user_id"], name: "index_tweets_on_user_id"
+    t.uuid "tweet_id", default: -> { "gen_random_uuid()" }, null: false
+    t.uuid "user_id", default: -> { "gen_random_uuid()" }, null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "password"
     t.datetime "created_at", null: false
@@ -105,13 +100,9 @@ ActiveRecord::Schema.define(version: 2019_04_08_065748) do
   end
 
   create_table "users_roles", id: false, force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "role_id"
-    t.index ["role_id"], name: "index_users_roles_on_role_id"
-    t.index ["user_id", "role_id"], name: "index_users_roles_on_user_id_and_role_id"
-    t.index ["user_id"], name: "index_users_roles_on_user_id"
+    t.uuid "role_id", default: -> { "gen_random_uuid()" }, null: false
+    t.uuid "user_id", default: -> { "gen_random_uuid()" }, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "tweets", "users"
 end
