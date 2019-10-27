@@ -1,12 +1,23 @@
-<h1>Profile <small class="muted"><%= @user.name %></small></h1>
 
-<div class="container">
-  <%= avatar @user %>
+<div class="jumbotron">
+  <div class="container">
+    <h1>
+      Profile <small class="muted"><%= @user.name %></small>
+    </h1>
+    <% if @user.id.eql? current_user.id %>
+      <%= link_to edit_user_registration_path, class: "image_container" do %>
+        <span class="center_text">
+          <%= fa_icon 'edit' %>
+        </span>
+        <%= image_tag current_user.avatar, class: 'darken img-responsive rounded-circle', width: 120 %>
+      <% end %>
+    <% else %>
+      <%= image_tag current_user.avatar, class: 'img-responsive rounded-circle', width: 120 %>
+    <% end %>
 
-  <%= @user.name %>
-  <%= @user.email %>
+    Name <%= @user.name %>
+    <br/>
+    Email <%= @user.email %>
 
-  <% if @user.id.eql? current_user.id %>
-    <%= link_to 'Settings', edit_user_registration_path, class: "btn btn-primary btn-sm" %>
-  <% end %>
+  </div>
 </div>

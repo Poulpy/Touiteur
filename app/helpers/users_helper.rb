@@ -17,4 +17,10 @@ module UsersHelper
     image_tag asset_path("pas-de-photo.png")
   end
 
+  def avatar_rounded user, width
+    if user.avatar.attached?
+      return image_tag user.avatar, class: 'img-responsive rounded-circle', width: width
+    end
+    image_tag asset_path("pas-de-photo.png")
+  end
 end
