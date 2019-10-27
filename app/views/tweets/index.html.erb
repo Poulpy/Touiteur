@@ -1,11 +1,5 @@
 <h3>Page des touits</h3>
 
-
-
-
-
-
-
 <!-- Search form -->
 <%= form_tag tweets_path, method: :get do %>
   <div class="input-group mb-3">
@@ -15,11 +9,6 @@
     <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1">
   </div>
 <% end %>
-
-
-
-
-
 
 <%# Add a tweet %>
 <%= form_for Tweet.new, url: tweets_path, class: 'form-signin', method: :post, remote: true do |f| %>

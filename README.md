@@ -42,6 +42,9 @@ Rails : 5.2.3
 ## TODOS
 
 - Solve security issues
+- Full Turbolinks
+- Better performance (queries)
+- docker
 - Better navbar
 - Better everything
 

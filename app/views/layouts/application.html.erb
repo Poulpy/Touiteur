@@ -32,10 +32,20 @@
 
   </body>
 
-  <footer>
+  <footer class="container">
+    <div class="row">
+      <div class="col-2">
     <%# LINK TO GITHUB REPOSITORY %>
-    <%= link_to "https://github.com/Poulpy/Touiteur", class: "nav-link" do %>
-      <%= fa_icon 'github' %> Repain Paul
+    <%= link_to "https://github.com/Poulpy", class: "badge-pill badge badge-secondary" do %>
+      <%= fa_icon 'github' %> GitHub
     <% end %>
+    <%= link_to "https://gitlab.com/Poulposaure", class: "badge-pill badge badge-info" do %>
+      <%= fa_icon 'gitlab' %> GitLab
+    <% end %>
+    <%= link_to "https://fr.linkedin.com/in/paul-repain-307474160", class: "badge-pill badge badge-primary" do %>
+      <%= fa_icon 'linkedin' %> Linkedin
+    <% end %>
+      </div>
+    </div>
   </footer>
 </html>
