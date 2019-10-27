@@ -1,9 +1,10 @@
 
-<div class="jumbotron">
-  <div class="container">
+<div class="jumbotron w-50 justify-content-center align-middle">
     <h1>
       Profile <small class="muted"><%= @user.name %></small>
     </h1>
+
+    <hr/>
     <% if @user.id.eql? current_user.id %>
       <%= link_to edit_user_registration_path, class: "image_container" do %>
         <span class="center_text">
@@ -15,9 +16,21 @@
       <%= image_tag current_user.avatar, class: 'img-responsive rounded-circle', width: 120 %>
     <% end %>
 
-    Name <%= @user.name %>
     <br/>
-    Email <%= @user.email %>
+    <%= @user.name %>
+    <br/>
+    <%= @user.email %>
+    <br/>
 
-  </div>
+<!--
+    <% unless @subscription.nil? %>
+      <%= link_to "Unfollow", @subscription, method: :delete, remote: true, class: "btn btn-sm btn-outline-danger" %>
+    <% else %>
+      <%= form_for Subscription.new, method: :post, remote: true, class: "form-inline" do |f| %>
+        <%= f.hidden_field :follower_id, value: current_user.id %>
+        <%= button_tag "Follow", type: 'submit', class: "btn btn-sm btn-primary my-1 d-inline" %>
+      <% end %>
+    <% end %>
+-->
+
 </div>

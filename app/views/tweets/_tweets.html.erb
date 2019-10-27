@@ -7,10 +7,12 @@
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex justify-content-between align-items-center">
         <div class="mr-2">
-          <% if t.user.avatar.attached? %>
-            <%= image_tag t.user.avatar, width: 45, class: 'rounded-circle' %>
-          <% else %>
-            <%= image_tag asset_path("pas-de-photo.png"), width: 45, class: 'rounded-circle' %>
+          <%= link_to user_path(t.user) do %>
+            <% if t.user.avatar.attached? %>
+              <%= image_tag t.user.avatar, width: 45, class: 'rounded-circle' %>
+            <% else %>
+              <%= image_tag asset_path("pas-de-photo.png"), width: 45, class: 'rounded-circle' %>
+            <% end %>
           <% end %>
         </div>
         <div class="ml-2">

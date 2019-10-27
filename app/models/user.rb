@@ -38,5 +38,8 @@ class User < ApplicationRecord
     end
   end
 
+  def is_following? user
+    self.followeds.include? user
+  end
 
 end

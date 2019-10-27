@@ -38,7 +38,7 @@ class Ability
       # a logged User can :
       # see his own profile, modify it, or delete it
       can [:show, :read, :update, :destroy], User, id: user.id
-      can :show, User, id: user.followeds.ids
+      can :show, User#, id: user.followeds.ids
 
       # touit, like, unlike a touit
       can [:create, :update, :destroy, :like, :unlike], Tweet

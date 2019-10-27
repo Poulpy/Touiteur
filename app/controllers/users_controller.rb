@@ -4,38 +4,17 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:show]
 
-
   def index
   end
-
 
   # GET /users/1
   # GET /users/1.json
   def show
+    @subscription = Subscription.where(follower_id: current_user.id,
+                                       followed_id: @user.id).first
   end
 
   def update
-    puts params
-
-    # # extracting the tags from the content of the touit
-    # content = params[:tweet][:content]
-    # @tweet.tag_names = content.scan(/#[A-Za-z0-9]*/)
-
-    # # creating the links for each tag
-    # tag_hash = Hash.new
-    # @tweet.tag_names.each do |tag|
-    #   word = tag[1..-1]# we erase the first character, #, for the link
-    #   tag_hash[tag] = link_to tag, tweets_path(tag: word)
-    # end
-
-    # # replacing tags with links
-    # tag_hash.each do |k, v|
-    #   content.gsub! k, v
-    # end
-
-    # @tweet.content = content
-
-
     respond_to do |format|
       if @user.update(tweet_params)
         format.html { redirect_to new_tweet_path, notice: 'Tweet was successfully created.' }
